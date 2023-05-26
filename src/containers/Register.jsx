@@ -1,22 +1,69 @@
-import React from "react";
-import "../assets/styles/components/Register.scss"
+import React, { useState } from "react";
+import "../assets/styles/components/Register.scss";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { connect } from "react-redux";
+import { registerRequest } from "../actions/actions";
 
-const Register = () => (
-  <>
-    <section className="register">
-      <section className="register__container">
-        <h2>Regístrate</h2>
-        <form className="register__container--form">
-          <input className="input" type="text" placeholder="Nombre" />
-          <input className="input" type="email" placeholder="Correo" />
-          <input className="input" type="password" placeholder="Contraseña" />
-          <button type="button" className="button">Registrarme</button>
-        </form>
-        <Link to="/login" >Iniciar sesión</Link>
+const Register = (props) => {
+  const [form, setValues] = useState({
+    nombre: "",
+  });
+
+  const onChange = (e) => {
+    setValues({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    //console.log(form);
+    props.registerRequest(form)
+    props.history.push("/")
+  };
+
+  return (
+    <>
+      <section className="register">
+        <section className="register__container">
+          <h2>Regístrate</h2>
+          <form className="register__container--form" onSubmit={handleSubmit}>
+            <input
+              name="nombre"
+              className="input"
+              type="text"
+              placeholder="Nombre"
+              onChange={onChange}
+            />
+
+            <input
+              name="email"
+              className="input"
+              type="email"
+              placeholder="Correo"
+              onChange={onChange}
+            />
+
+            <input
+              name="password"
+              className="input"
+              type="passwo
+            rd"
+              placeholder="Contraseña"
+              onChange={onChange}
+            />
+
+            <button type="submit" className="button">
+              Registrarme
+            </button>
+          </form>
+          <Link to="/login">Iniciar sesión</Link>
+        </section>
       </section>
-    </section>
-  </>
-);
+    </>
+  );
+};
 
-export default Register;
+const mapDispatchToProps = {
+  registerRequest,
+};
+
+export default connect(null, mapDispatchToProps)(Register);
