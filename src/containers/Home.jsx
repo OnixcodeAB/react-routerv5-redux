@@ -6,16 +6,29 @@ import Carousel from "../components/Carousel";
 import CarouselItem from "../components/CarouselItem";
 import useInitialState from "../hooks/useInitialState";
 import "../assets/styles/App.scss";
+import Header from "../components/Header";
 
-const Home = ({ myList, trends, originals }) => {
+const Home = ({ myList, trends, originals, search }) => {
   return (
     <>
-      <Search />
+      <Header />
+      <Search isHome />
+      
+      {search.length > 0 && (
+        <Categories title="Busquedas">
+          <Carousel>
+            {search.map((item) => (
+              <CarouselItem key={item.id} {...item} isList />
+            ))}
+          </Carousel>
+        </Categories>
+      )}
+      
       {myList.length > 0 && (
         <Categories title="Mi Lista">
           <Carousel>
             {myList.map((item) => (
-              <CarouselItem key={item.id} {...item} isList/>
+              <CarouselItem key={item.id} {...item} isList />
             ))}
           </Carousel>
         </Categories>
@@ -42,6 +55,7 @@ const mapStateToProps = (state) => {
     myList: state.myList,
     trends: state.trends,
     originals: state.originals,
+    search: state.search,
   };
 };
 export default connect(mapStateToProps, null)(Home);

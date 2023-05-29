@@ -42,6 +42,22 @@ const reducer = (state, action) => {
             .find((item) => item.id === Number(action.payload)) || {},
       };
 
+    case "SEARCH_VIDEO":
+      if(action.payload ==""){
+        return{
+          ...state,
+          search:[]
+        }
+      }
+      return {
+        ...state,
+        search: state.trends
+          .concat(state.originals)
+          .filter((item) =>
+            item.title.toLowerCase().includes(action.payload.toLowerCase())
+          ),
+      };
+
     default:
       return state;
   }

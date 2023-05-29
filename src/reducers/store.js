@@ -1,10 +1,11 @@
-import { legacy_createStore } from "redux";
+import { legacy_createStore, compose } from "redux";
 import reducer from "./reducer";
 
 const initialState = {
   user: {},
   playing: {},
   myList: [],
+  search:[],
   trends: [
     {
       id: 2,
@@ -167,4 +168,11 @@ const initialState = {
   ],
 };
 
-export default legacy_createStore(reducer, initialState);
+const composeEnhancers =
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
+export const store = legacy_createStore(
+  reducer,
+  initialState,
+  composeEnhancers
+);

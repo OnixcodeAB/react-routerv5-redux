@@ -5,6 +5,7 @@ import twiterIcon from "../assets/static/twitter-icon.png";
 import "../assets/styles/components/Login.scss";
 import { connect } from "react-redux";
 import { loginRequest } from "../actions/actions";
+import Header from "../components/Header";
 
 const Login = (props) => {
   const [form, setValues] = useState({
@@ -20,12 +21,13 @@ const Login = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     props.loginRequest(form);
-    props.history.push("/")
+    props.history.push("/");
     console.log(form);
   };
 
   return (
     <>
+      <Header isLogin />
       <section className="login">
         <section className="login__container">
           <h2>Inicia sesión</h2>
