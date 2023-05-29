@@ -26,11 +26,20 @@ const reducer = (state, action) => {
         ...state,
         user: action.payload,
       };
-    
-      case "REGISTER_REQUEST":
+
+    case "REGISTER_REQUEST":
       return {
         ...state,
         user: action.payload,
+      };
+
+    case "REQUEST_VIDEO":
+      return {
+        ...state,
+        playing:
+          state.trends
+            .concat(state.originals)
+            .find((item) => item.id === Number(action.payload)) || {},
       };
 
     default:

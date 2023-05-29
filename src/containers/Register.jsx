@@ -7,6 +7,8 @@ import { registerRequest } from "../actions/actions";
 const Register = (props) => {
   const [form, setValues] = useState({
     nombre: "",
+    email: "",
+    password: "",
   });
 
   const onChange = (e) => {
@@ -15,9 +17,9 @@ const Register = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //console.log(form);
     props.registerRequest(form)
     props.history.push("/")
+    //console.log(form);
   };
 
   return (
